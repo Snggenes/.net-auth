@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "3cqi8A/zccokm9mmwYpyEN1bfXigGczQksjcMS1OB58=",
+  "Source": "dotnet-new",
+  "BasePath": "_content/dotnet-new",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
