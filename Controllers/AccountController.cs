@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 
 using dotnet_new.Dtos.Account;
 using dotnet_new.Interfaces;
+using dotnet_new.Mappers;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using dotnet_new.Extensions;
 
 namespace dotnet_new.Controllers
 {
@@ -98,6 +103,56 @@ namespace dotnet_new.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.Now.AddDays(-1)
+            };
+
+            Response.Cookies.Append("Authorization", "", cookieOptions);
+            return Ok(new { message = "Logout successful" });
+        }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            try
+            {   
+                var userid = User.GetUserId();
+                Console.WriteLine("userid: " + userid);
+
+                var useremail = User.GetUseremail();
+                if (string.IsNullOrEmpty(useremail))
+                {
+                    return Unauthorized(new { error = "User not found" });
+                }
+
+                var user = await _userManager.FindByEmailAsync(useremail);
+                if (user == null)
+                {
+                    return Unauthorized("User not found-email");
+                }
+
+                var roles = await _userManager.GetRolesAsync(user);
+                var role = roles.FirstOrDefault();
+
+                if (role == null)
+                {
+                    return Unauthorized("User not found-role");
+                }
+
+                var profilefto = user.ToProfileDtoFromUser(role);
+                return Ok(profilefto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
             }
         }
     }

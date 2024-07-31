@@ -146,3 +146,4 @@ C:\Users\sngge\Desktop\dotnet-new\bin\Debug\net8.0\Microsoft.AspNetCore.Identity
 C:\Users\sngge\Desktop\dotnet-new\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\sngge\Desktop\dotnet-new\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\sngge\Desktop\dotnet-new\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\sngge\Desktop\dotnet-new\obj\Debug\net8.0\dotnet-new.sourcelink.json
